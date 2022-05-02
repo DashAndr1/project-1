@@ -1,73 +1,47 @@
-/* Задание на урок:
+'use strict'
 
-1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
+console.log(getMathResult(10, 5));
 
-2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
-отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
-возвращаем пользователя к вопросам опять
-
-3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
-"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
-"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
-
-4) Потренироваться и переписать цикл еще двумя способами*/
-
-'use strict';
-
-// Код возьмите из предыдущего домашнего задания
-
-const minimumOfSymbols = 3;
-const VIEWER_STATUS = {
-    no_Status:{count: {begin: 0, end: 9}, statusName: "без статуса"},
-    classic: {count: {begin: 10, end: 30}, statusName: "классический зритель"},
-    kinoman: {count: {begin: 31, end: "-"}, statusName: "киноман"}
-};
-
-
-let personalMovieDB = {
-    count: '0',
-    movies: [],
-    actors: {},
-    genres: {},
-    privat: false
+// Место для первой задачи
+function sayHello(name) {
+    return "Привет, " + name;
 }
 
+// Место для второй задачи
+function returnNeighboringNumbers(number) {
+    return [number - 1, number, number + 1];
+}
 
-
-while (1) {
-    let answer = prompt('Сколько фильмов вы уже посмотрели?', "0");
-    if(answer.length == 0 ){
-        alert("Введите число");
-        continue;
-    } else {
-        personalMovieDB['count'] = answer;
-        break;
+// Место для третьей задачи
+function getMathResult(outputNumber, repeat) {
+    let number = outputNumber;
+    let result = '' + number;
+    if(repeat <= 0 || typeof(repeat) == typeof("str") )
+        return result;
+    for( let i = 1; i < repeat; i++ ){
+        number += outputNumber;
+        result += "---" + number;
     }
-
+    return result;
 }
 
-while (1) {
-    let answer = prompt('Один из последних просмотренных фильмов?', "");
-    if(answer.length == 0 ){
-        alert("Введите текст");
-        continue;
-    } else if(answer.length < minimumOfSymbols){
-        alert("Текст должен содержать не меньше 3х символов");
-        continue;
-    } else {
-        personalMovieDB.movies.push({"name": answer});
-        break;
-    }
-        
-}
+// function getMathResult(num, times) {
+//     if (typeof(times) !== 'number' || times <= 0) {
+//         return num;
+//     }
 
-if( personalMovieDB['count'] <= VIEWER_STATUS.no_Status.count.end)
-    alert("Просмотрено довольно мало фильмов");
-else if (personalMovieDB['count'] <= VIEWER_STATUS.classic.count.end) {
-    alert(`Вы ` + VIEWER_STATUS.classic.statusName);
-} else if (personalMovieDB['count'] >= VIEWER_STATUS.kinoman.count.begin) {
-    alert(`Вы ` + VIEWER_STATUS.kinoman.statusName);
-}
+//     let str = '';
 
+//     for (let i = 1; i <= times; i++) {
+//         if (i === times) {
+//             str += `${num * i}`;
+//             // Тут без черточек в конце
+//         } else {
+//             str += `${num * i}---`;
+//             // Это тоже самое, что и
+//             // str = str + num * i + "---"
+//         }
+//     }
 
-console.log(personalMovieDB); 
+//     return str;
+// }
