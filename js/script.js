@@ -1,27 +1,59 @@
 'use district';
 
-console.log(fib(4));
-console.log(fib(7));
-console.log(fib('7'));
-console.log(fib(""));
-console.log(fib(0));
 
-function fib(numOfDigits) {
-    let result = "0 1";
-    const arr = [+result[0], +result[2]];
+
+const personalPlanPeter = {
+    name: "Peter",
+    age: "30",
+    skills: {
+        languages: ['ru', 'ua'],
+        programmingLangs: {
+            js: '20%',
+            php: '10%'
+        },
+        exp: '1 month'
+    }, 
+    showAgeAndLangs(){
+        let result = "";
+        result += `Мне ${this.age} и я владею языками: `;
+        this.skills.languages.forEach(item => {
+            result += `${item.toUpperCase()} `;
+        });
+
+        return result;
+    }
+};
+
+function showExperience(plan) {
+    let result = "";
+
+    function distruct(outputObj){
+        let obj = {};
+        for (const [key, value] of Object.entries(outputObj)) {
+            if(typeof(value) == 'object'){
+                obj = Object.assign(obj, distruct(value));
+            }else{
+                obj[key] = value;
+            }
+            
+      }
+      return obj;
+    }
     
-    if (numOfDigits <= 0 || typeof(numOfDigits) != "number" || numOfDigits % 1 !== 0) {
-        result = "";
-    }else if (numOfDigits == 1) {
-        result = "0";
-    }else if (numOfDigits == 2) {
-        result = "0 1";
-    }else {
-        for (let i = 2; i < numOfDigits; i++) {
-            arr[i] = arr[i - 2] + arr[i - 1];
-            result += ` ${arr[i]}`;
-        }
+    result = distruct(plan).exp;
+    return result;
+}
+
+function showProgrammingLangs(plan) {
+    let result = "";
+
+    for (const key in plan.skills.programmingLangs) {
+        result += `Язык ${key} изучен на ${plan.skills.programmingLangs[key]}\n`;
     }
 
     return result;
 }
+
+console.log(showExperience(personalPlanPeter));
+console.log(showProgrammingLangs(personalPlanPeter));
+console.log(personalPlanPeter.showAgeAndLangs());
